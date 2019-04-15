@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 2019_04_15_224314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "drivers", force: :cascade do |t|
+    t.string "name"
+    t.string "vin"
+    t.string "car_make"
+    t.string "car_model"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "passengers", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
