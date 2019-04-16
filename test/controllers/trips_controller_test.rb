@@ -2,7 +2,7 @@ require "test_helper"
 
 describe "TripsController" do
   let (:trip) {
-    Trip.create driver_id: 0, passenger_id: 0, date: 0000-00-01, rating: 0.0, cost: 1234.5
+    Trip.create date: 0000-00-01, rating: 0.0, cost: 1234.5
   }
 
   # describe "index" do
@@ -61,9 +61,7 @@ describe "TripsController" do
         trip: {
           date: 2016-06-02,
           rating: 4.0,
-          cost: 1474.0,
-          driver_id: 1,
-          passenger_id: 1,
+          cost: 1474.0
         },
       }
 
@@ -90,40 +88,39 @@ describe "TripsController" do
     end
   end
 
-  # describe "new" do
-  #   it "can get the new trip page" do
+  describe "new" do
+    it "can get the new trip page" do
 
-  #     get new_trip_path
+      get new_trip_path
 
-  #     must_respond_with :success
-  #   end
-  # end
+      must_respond_with :success
+    end
+  end
 
-  # describe "create" do
-  #   it "can create a new trip" do
+  describe "create" do
+    it "can create a new trip" do
 
-  #     trip_hash = {
-  #       trip: {
-  #         date: 2016-06-02,
-  #         rating: 4.0,
-  #         cost: 1474.0,
-  #       },
-  #     }
+      trip_hash = {
+        trip: {
+          date: 2016-06-02,
+          rating: 4.0,
+          cost: 1474.0,
+        }
+      }
 
-  #     # Act-Assert
-  #     expect {
-  #       post trips_path, params: trip_hash
-  #     }.must_change "Trip.count", 1
+      expect {
+        post trips_path, params: trip_hash
+      }.must_change "Trip.count", 1
 
-  #     new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-  #     expect(trip.date).must_equal trip_hash[:trip][:date]
-  #     expect(trip.rating).must_equal trip_hash[:trip][:rating]
-  #     expect(trip.cost).must_equal trip_hash[:trip][:cost]
+      new_trip = Trip.find_by(date: trip_hash[:trip][:date])
+      expect(trip.date).must_equal trip_hash[:trip][:date]
+      expect(trip.rating).must_equal trip_hash[:trip][:rating]
+      expect(trip.cost).must_equal trip_hash[:trip][:cost]
 
-  #     must_respond_with :redirect
-  #     must_redirect_to trip_path(new_trip.id)
-  #   end
-  # end
+      must_respond_with :redirect
+      must_redirect_to trip_path(new_trip.id)
+    end
+  end
 
   describe "destroy" do
     it "removes the trip from the database" do
