@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe PassengersController do
+describe "PassengersController" do
   describe "index" do
     # Your tests go here
   end

@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe HomepagesController do
+describe "HomepagesController" do
   it "can get the homepage" do
     get root_path
 
