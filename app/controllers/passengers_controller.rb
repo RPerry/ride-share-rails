@@ -11,17 +11,13 @@ class PassengersController < ApplicationController
   end
 
   def create
-    # Params will contain data like this:
-    # "book"=>{"title"=>"Dan Test Book", "author"=>"Test Author"}
-    puts "Made it!"
-
     @passenger = Passenger.new(passenger_params)
 
     successful = @passenger.save
     if successful
       redirect_to passengers_path
     else
-      render :new
+      render :new, status: :bad_request
     end
   end
 
@@ -53,11 +49,10 @@ class PassengersController < ApplicationController
       return
     end
 
-    # Update includes a save! Don't need to do it ourselves
     if @passenger.update(passenger_params)
       redirect_to passenger_path(@passenger)
     else
-      render :edit
+      render :edit, status: :bad_request
     end
   end
 
