@@ -1,6 +1,10 @@
 require "test_helper"
 
 describe "DriversController" do
+  let (:driver) {
+    Driver.create name: "name", vin: "123456789", car_make: "make", car_model: "model"
+  }
+  
   describe "index" do
     it "can get index" do
       get drivers_path
@@ -30,7 +34,7 @@ describe "DriversController" do
     it "can get the edit page for an existing driver" do
       # Act
       driver = Driver.new
-      Driver.name = "John Randall"
+      driver.name = "John Randall"
       driver.save
 
       get edit_driver_path(driver.id)

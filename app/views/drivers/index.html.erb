@@ -7,7 +7,7 @@
         <%= link_to driver.name, driver_path(driver) %>
       </strong>
       VIN: <%= driver.vin %>
-      Car Mark: <%= driver.car_make %>
+      Car Make: <%= driver.car_make %>
       Car Model: <%= driver.car_model %>
       <%= link_to "Edit", edit_driver_path(driver) %>
       <%= link_to "Delete", driver_path(driver), method: :delete, data: { confirm: "Really really?" } %>

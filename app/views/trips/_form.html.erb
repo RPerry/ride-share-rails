@@ -1,0 +1,47 @@
+<% if @trip.errors.messages.any? %>
+  <section class="error-messages">
+    There were some issues with your submission
+    <ul>
+      <% @trip.errors.messages.each do |column, problem_list| %>
+        <% problem_list.each do |problem| %>
+          <li>
+            <%= column %>: <%= problem %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<%= form_with model: @trip, class: 'trip-form' do |f| %>
+  <p>Please fill out this trip information</p>
+
+ <div>
+    <%= f.label :driver_id, "Please enter a driver ID" %>
+    <%= f.text_field :driver_id, placeholder: "Driver ID" %>
+  </div>
+
+   <div>
+    <%= f.label :passenger_id, "Please enter a passenger ID" %>
+    <%= f.text_field :passenger_id, placeholder: "Passenger ID" %>
+  </div>
+
+  <div>
+    <%= f.label :date, "Please enter a date" %>
+    <%= f.text_field :date, placeholder: "YEAR-MN-DY" %>
+  </div>
+
+  <div>
+    <%= f.label :rating, "Please enter a rating" %>
+    <%= f.text_field :rating, placeholder: "1-5" %>
+  </div>
+
+  <div>
+    <%= f.label :cost, "Please enter the trip cost" %>
+    <%= f.text_field :cost, placeholder: "12345.0" %>
+  </div>
+
+
+  <%= f.submit button_text %>
+
+<% end %>

@@ -13,7 +13,7 @@ class DriversController < ApplicationController
         successful = @driver.save
 
         if successful
-            redirect_to driver_path(driver.id)
+            redirect_to driver_path(@driver.id)
         else 
             render :new
         end
