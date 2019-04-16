@@ -1,4 +1,4 @@
-require 'pry'
+
 class TripsController < ApplicationController
     # def index
     #     @trips = Trip.all
@@ -13,7 +13,6 @@ class TripsController < ApplicationController
         @trip = Trip.new(trip_params)
         
         successful = @trip.save!
-        binding.pry
         if successful
             redirect_to trip_path(@trip.id)
         else 
