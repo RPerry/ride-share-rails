@@ -1,23 +1,23 @@
 class TripsController < ApplicationController
-    def index
-        @trips = Trip.all
+    # def index
+    #     @trips = Trip.all
+    # end
+
+    def new
+        @trip = Trip.new
     end
 
-    # def new
-    #     @trip = Trip.new
-    # end
-
-    # def create
-    #     @trip = Trip.new(trip_params)
+    def create
+        @trip = Trip.new(trip_params)
         
-    #     successful = @trip.save
+        successful = @trip.save
 
-    #     if successful
-    #         redirect_to trip_path(trip.id)
-    #     else 
-    #         render :new
-    #     end
-    # end
+        if successful
+            redirect_to trip_path(@trip.id)
+        else 
+            render :new
+        end
+    end
 
     def show
         trip_id = params[:id]
@@ -70,6 +70,6 @@ class TripsController < ApplicationController
     private
 
     def trip_params
-        return params.require(:trip).permit(:date, :rating, :cost, :driver_id, :passenger_id)
+        return params.require(:trip).permit(:date, :rating, :cost)
     end
 end
