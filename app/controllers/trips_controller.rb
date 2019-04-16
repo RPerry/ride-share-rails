@@ -1,3 +1,4 @@
+require 'pry'
 class TripsController < ApplicationController
     # def index
     #     @trips = Trip.all
@@ -8,14 +9,15 @@ class TripsController < ApplicationController
     end
 
     def create
+        
         @trip = Trip.new(trip_params)
         
-        successful = @trip.save
-
+        successful = @trip.save!
+        binding.pry
         if successful
             redirect_to trip_path(@trip.id)
         else 
-            render :new
+            render :new, status: :bad_request
         end
     end
 
@@ -70,6 +72,6 @@ class TripsController < ApplicationController
     private
 
     def trip_params
-        return params.require(:trip).permit(:date, :rating, :cost)
+        return params.require(:trip).permit(:date, :rating, :cost, :driver_id, :passenger_id,)
     end
 end
