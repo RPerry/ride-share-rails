@@ -73,7 +73,7 @@ class DriversController < ApplicationController
 
         driver.destroy
         
-        redirect_to driverss_path
+        redirect_to drivers_path
     end
 
     private

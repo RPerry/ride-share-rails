@@ -55,95 +55,94 @@ describe "TripsController" do
       
       trip_hash = {
         trip: {
-          date: "John Randall",
-          rating: "123456789",
-          cost: "Honda",
+          date: 2016-06-02,
+          rating: 4.0,
+          cost: 1474.0,
         },
       }
 
       # Act-Assert
       expect {
-        patch driver_path(driver.id), params: driver_hash
-      }.must_change "Driver.count", 0
+        patch trip_path(trip.id), params: trip_hash
+      }.must_change "Trip.count", 0
 
-      expect(driver.name).must_equal "John Randall"
-      #Repulling from database - updating the title variable
-      driver.reload
-      expect(driver.name).must_equal driver_hash[:driver][:name]
-      expect(driver.vin).must_equal driver_hash[:driver][:vin]
-      expect(driver.car_make).must_equal driver_hash[:driver][:car_make]
-      expect(driver.car_model).must_equal driver_hash[:driver][:car_model]
+      expect(trip.date).must_equal 2016-06-02
+      #Repulling from database - updating the date variable
+      trip.reload
+      expect(trip.date).must_equal trip_hash[:trip][:date]
+      expect(trip.rating).must_equal trip_hash[:trip][:rating]
+      expect(trip.cost).must_equal trip_hash[:trip][:cost]
+      
 
       must_respond_with :redirect
-      must_redirect_to driver_path(driver.id)
+      must_redirect_to trip_path(trip.id)
     end
 
     it "will redirect to the root page if given an invalid id" do
-        patch driver_path(999)
+        patch trip_path(999)
         must_respond_with :redirect
-        must_redirect_to drivers_path
+        must_redirect_to trips_path
     end
   end
 
   describe "new" do
-    it "can get the new driver page" do
+    it "can get the new trip page" do
 
-      get new_driver_path
+      get new_trip_path
 
       must_respond_with :success
     end
   end
 
   describe "create" do
-    it "can create a new driver" do
+    it "can create a new trip" do
 
-      driver_hash = {
-        driver: {
-          name: "John Randall",
-          vin: "123456789",
-          car_make: "Honda",
-          car_model: "Accord"
+      trip_hash = {
+        trip: {
+          date: 2016-06-02,
+          rating: 4.0,
+          cost: 1474.0,
         },
       }
 
       # Act-Assert
       expect {
-        post drivers_path, params: driver_hash
-      }.must_change "Driver.count", 1
+        post trips_path, params: trip_hash
+      }.must_change "Trip.count", 1
 
-      new_driver = Driver.find_by(name: driver_hash[:driver][:name])
-      expect(new_driver.vin).must_equal driver_hash[:driver][:vin]
-      expect(new_driver.car_make).must_equal driver_hash[:driver][:car_make]
-      expect(new_driver.car_model).must_equal driver_hash[:driver][:car_model]
+      new_trip = Trip.find_by(date: trip_hash[:trip][:date])
+      expect(trip.date).must_equal trip_hash[:trip][:date]
+      expect(trip.rating).must_equal trip_hash[:trip][:rating]
+      expect(trip.cost).must_equal trip_hash[:trip][:cost]
 
       must_respond_with :redirect
-      must_redirect_to driver_path(new_driver.id)
+      must_redirect_to trip_path(new_trip.id)
     end
   end
 
   describe "destroy" do
-    it "removes the driver from the database" do
-      driver = Driver.create(name: "John Randall")
+    it "removes the trip from the database" do
+      trip = Trip.create(date: 2016-06-02)
       
       expect {
-        delete driver_path(driver)
-      }.must_change "Driver.count", -1
+        delete trip_path(trip)
+      }.must_change "Trip.count", -1
 
       must_respond_with :redirect
-      must_redirect_to drivers_path
+      must_redirect_to trips_path
 
-      after_driver = Driver.find_by(name: driver.id)
-      expect(after_driver).must_be_nil
+      after_trip = Trip.find_by(date: trip.id)
+      expect(after_trip).must_be_nil
     end
 
-    it "returns a 404 if the driver does not exist" do
-      driver_id = 999
+    it "returns a 404 if the trip does not exist" do
+      dtrip_id = 999
 
-      expect(Driver.find_by(name: driver_id)).must_be_nil
+      expect(Trip.find_by(date: trip_id)).must_be_nil
 
       expect {
-        delete driver_path(driver_id)
-      }.wont_change "Driver.count"
+        delete trip_path(trip_id)
+      }.wont_change "Trip.count"
 
       must_respond_with :not_found
     end
