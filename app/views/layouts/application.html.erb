@@ -9,7 +9,46 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+    <header>
+      <nav>
+        <ul>
+          <div>
+            <li>
+              <%= link_to "Ada Rideshare", root_path %>
+            </li>
+          </div>
+          <div class="dropdown">
+            <li>
+              Drivers
+            </li>
+            <div class="dropdown-content">
+              <li>
+                <%= link_to "List Drivers", drivers_path %>
+              </li>
+              <li>
+                <%= link_to "Add a Driver", new_driver_path %>
+              </li>
+            </div>
+          </div>
+          <div class="dropdown">
+            <li>
+              Passengers
+            </li>
+            <div class="dropdown-content">
+              <li>
+                <%= link_to "List Passengers", passengers_path %>
+              </li>
+              <li>
+                <%= link_to "Add a Passenger", new_passenger_path %>
+              </li>
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
 </html>
