@@ -118,7 +118,7 @@ describe "TripsController" do
       }.must_change "Trip.count", +1
 
       # new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      # expect(trip.date).must_equal trip_hash[:trip][:date]
+      # # expect(trip.date).must_equal trip_hash[:trip][:date]
       # expect(trip.rating).must_equal trip_hash[:trip][:rating]
       # expect(trip.cost).must_equal trip_hash[:trip][:cost]
 

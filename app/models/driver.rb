@@ -6,34 +6,21 @@ class Driver < ApplicationRecord
   validates :vin, presence: true
 
   def total_earnings
-    earnings = 0
-    cost_array = []
+    earnings = 0.0
     self.trips.each do |t|
-      t.cost.each do |c|
-        cost_array << c
-      end
-    end
-
-    cost_array.each do |c|
-      earnings += c
+        earnings += t.cost
     end
 
     return earnings
   end
 
   def average_rating
-    average = 0
-    rating_array = []
-    number_of_trips = self.trips.find_by(driver_id: self.id).length
-    self.trips.each do |t|
-      t.rating.each do |r|
-        rating_array << r
-      end
+    average = 0.0
+    number_of_trips = self.trips.all.length
+    self.trips.all.each do |t|
+        average += t.rating
     end
-
-    rating_array.each do |r|
-      average += r
-    end
+   
     return average / number_of_trips
   end
 end
