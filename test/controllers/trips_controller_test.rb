@@ -15,6 +15,8 @@ describe "TripsController" do
 
   describe "show" do
     it "can get a valid trip" do
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip.save!
       get trip_path(trip.id)
 
       # Assert
@@ -33,9 +35,9 @@ describe "TripsController" do
   describe "edit" do
     it "can get the edit page for an existing trip" do
       # Act
-      trip = Trip.new
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
       trip.rating = 4.0
-      trip.save
+      trip.save!
 
       get edit_trip_path(trip.id)
 
@@ -53,13 +55,13 @@ describe "TripsController" do
 
   describe "update" do
     it "can update an existing trip" do
-      trip = Trip.new
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
       trip.rating = 4.0
-      trip.save
+      trip.save!
       
       trip_hash = {
         trip: {
-          date: 2016-06-02,
+          date: Date.today,
           rating: 4.0,
           cost: 1474.0
         },
@@ -69,7 +71,6 @@ describe "TripsController" do
         patch trip_path(trip.id), params: trip_hash
       }.must_change "Trip.count", 0
 
-      expect(trip.date).must_equal 2016-06-02
       #Repulling from database - updating the date variable
       trip.reload
       expect(trip.date).must_equal trip_hash[:trip][:date]
@@ -103,7 +104,7 @@ describe "TripsController" do
       trip_hash = {
         trip: {
           id: @trip.id,
-          date: 2016-06-02,
+          date: '2016-06-02',
           rating: 4.0,
           cost: 1474.0,
           driver_id: Driver.last.id,
@@ -117,7 +118,7 @@ describe "TripsController" do
       }.must_change "Trip.count", +1
 
       # new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      # expect(trip.date).must_equal trip_hash[:trip][:date]
+      # # expect(trip.date).must_equal trip_hash[:trip][:date]
       # expect(trip.rating).must_equal trip_hash[:trip][:rating]
       # expect(trip.cost).must_equal trip_hash[:trip][:cost]
 
@@ -128,7 +129,8 @@ describe "TripsController" do
 
   describe "destroy" do
     it "removes the trip from the database" do
-      trip = Trip.create(date: 2016-06-02,)
+      trip = Trip.create(passenger_id: Passenger.last.id, driver_id: Driver.last.id, date: '2016-12-12')
+      trip.rating = 4.0
       
       expect {
         delete trip_path(trip)
@@ -137,7 +139,7 @@ describe "TripsController" do
       must_respond_with :redirect
       must_redirect_to trips_path
 
-      after_trip = Trip.find_by(date: trip.id)
+      after_trip = Trip.find_by(id: trip.id)
       expect(after_trip).must_be_nil
     end
 

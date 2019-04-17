@@ -12,3 +12,38 @@
 <p>
   Car Model: <%= @driver.car_model %>
 </p>
+<p>
+  Total Earnings: $<%= @driver.total_earnings %>
+</p>
+<p>
+  Average Rating: <%= @driver.average_rating.round(2)%>
+</p>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Driver</th>
+    <th>Passenger</th>
+    <th>Price</th>
+    <th>Rating</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% @driver.trips.each do |t| %>
+  <tr>
+  <td><%= link_to t.id, trip_path(t) %></td>
+  <td><%= t.date%></td>
+   <% driver = Driver.find_by(id: t.driver_id)%>
+  <td><%= t.driver.name%></td>
+  <% passenger = Passenger.find_by(id: t.passenger_id)%>
+  <td> <%= t.passenger.name%></td>
+  <td>$<%= t.cost%> </td>
+  <td><%= t.rating%></td>
+  <td><%= link_to "Edit", edit_driver_path(@driver)%></td>
+  <td><%= link_to "Delete", driver_path(@driver), method: :delete, data: { confirm: "Really really?" } %></td>
+  </tr>
+  <% end %>
+</table>
+
+
