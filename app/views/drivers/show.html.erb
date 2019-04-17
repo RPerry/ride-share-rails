@@ -19,6 +19,8 @@
   Average Rating: <%= @driver.average_rating.round(2)%>
 </p>
 
+<h2><%= @driver.name %>'s Trips</h2>
+
 <table>
   <tr>
     <th>ID</th>
@@ -37,7 +39,7 @@
    <% driver = Driver.find_by(id: t.driver_id)%>
   <td><%= t.driver.name%></td>
   <% passenger = Passenger.find_by(id: t.passenger_id)%>
-  <td> <%= t.passenger.name%></td>
+  <td> <%= link_to t.passenger.name, passenger_path(t.passenger_id)%></td>
   <td>$<%= t.cost%> </td>
   <td><%= t.rating%></td>
   <td><%= link_to "Edit", edit_driver_path(@driver)%></td>
