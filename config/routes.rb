@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :passengers do
     resources :trips, only: [:index, :new, :create]
   end
+
+  post '/drivers/:id/available', to: 'drivers#available', as: "driver_availability"
 end
