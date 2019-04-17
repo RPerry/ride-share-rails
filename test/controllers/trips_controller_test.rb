@@ -15,7 +15,7 @@ describe "TripsController" do
 
   describe "show" do
     it "can get a valid trip" do
-      trip = Trip.new(passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
       trip.save!
       get trip_path(trip.id)
 
@@ -35,7 +35,7 @@ describe "TripsController" do
   describe "edit" do
     it "can get the edit page for an existing trip" do
       # Act
-      trip = Trip.new(passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
       trip.rating = 4.0
       trip.save!
 
@@ -55,7 +55,7 @@ describe "TripsController" do
 
   describe "update" do
     it "can update an existing trip" do
-      trip = Trip.new(passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
       trip.rating = 4.0
       trip.save!
       
@@ -104,7 +104,7 @@ describe "TripsController" do
       trip_hash = {
         trip: {
           id: @trip.id,
-          date: 2016-06-02,
+          date: '2016-06-02',
           rating: 4.0,
           cost: 1474.0,
           driver_id: Driver.last.id,
@@ -129,7 +129,7 @@ describe "TripsController" do
 
   describe "destroy" do
     it "removes the trip from the database" do
-      trip = Trip.create(passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.create(passenger_id: Passenger.last.id, driver_id: Driver.last.id, date: '2016-12-12')
       trip.rating = 4.0
       
       expect {

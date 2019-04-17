@@ -4,7 +4,7 @@ describe "DriversController" do
   let (:driver) {
     Driver.create name: "name", vin: "123456789", car_make: "make", car_model: "model"
   }
-  
+
   describe "index" do
     it "can get index" do
       get drivers_path
@@ -33,7 +33,7 @@ describe "DriversController" do
   describe "edit" do
     it "can get the edit page for an existing driver" do
       # Act
-      driver = Driver.new
+      driver = Driver.new(name: "Jessica Sanchez", vin: "XF9HBFH148FLD41K8")
       driver.name = "John Randall"
       driver.save
 
@@ -53,7 +53,7 @@ describe "DriversController" do
 
   describe "update" do
     it "can update an existing driver" do
-      driver = Driver.new
+      driver = Driver.new(name: "Jessica Sanchez", vin: "XF9HBFH148FLD41K8")
       driver.name = "John Randall"
       driver.save
       
@@ -128,7 +128,7 @@ describe "DriversController" do
 
   describe "destroy" do
     it "removes the driver from the database" do
-      driver = Driver.create(name: "John Randall")
+      driver = Driver.create(name: "John Randall", vin: "XF9HBFH148FLD41K8")
       
       expect {
         delete driver_path(driver)

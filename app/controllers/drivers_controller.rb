@@ -17,13 +17,6 @@ class DriversController < ApplicationController
         else 
             render :new
         end
-
-        # unless params["driver"]
-        #     render :new, status: :bad_request
-        #     return
-        # end
-        
-        # driver.save
         
        
     end
@@ -70,6 +63,7 @@ class DriversController < ApplicationController
         head :not_found
         return
        end
+
 
         driver.destroy
         
