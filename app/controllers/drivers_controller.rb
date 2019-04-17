@@ -70,6 +70,23 @@ class DriversController < ApplicationController
         redirect_to drivers_path
     end
 
+    def available
+        driver_id = params[:id]
+    
+        driver = Driver.find_by(id: driver_id)
+    
+        unless driver
+          head :not_found
+          return
+        end
+    
+        driver.available = !driver.available
+    
+        driver.save
+    
+        redirect_to driver_path(@driver.id)
+      end
+
     private
 
     def driver_params
