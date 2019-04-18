@@ -5,6 +5,14 @@ describe "TripsController" do
     Trip.create date: 0000-00-01, rating: 0.0, cost: 1234.5
   }
 
+  let (:passenger) {
+    Passenger.create name: "John Randall", phone_num: "234-456-3454"
+  }
+
+  let (:driver) {
+    Driver.create name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6"
+  }
+
   # describe "index" do
   #   it "can get index" do
   #     get trips_path
@@ -15,7 +23,7 @@ describe "TripsController" do
 
   describe "show" do
     it "can get a valid trip" do
-      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.save!
       get trip_path(trip.id)
 
@@ -35,7 +43,7 @@ describe "TripsController" do
   describe "edit" do
     it "can get the edit page for an existing trip" do
       # Act
-      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.rating = 4.0
       trip.save!
 
@@ -55,7 +63,7 @@ describe "TripsController" do
 
   describe "update" do
     it "can update an existing trip" do
-      trip = Trip.new(date: '2016-12-12', passenger_id: Passenger.last.id, driver_id: Driver.last.id)
+      trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.rating = 4.0
       trip.save!
       
@@ -107,8 +115,8 @@ describe "TripsController" do
           date: '2016-06-02',
           rating: 4.0,
           cost: 1474.0,
-          driver_id: Driver.last.id,
-          passenger_id: Passenger.last.id,
+          driver_id: driver.id,
+          passenger_id: passenger.id,
         },
       }
     puts trip_hash
@@ -129,7 +137,7 @@ describe "TripsController" do
 
   describe "destroy" do
     it "removes the trip from the database" do
-      trip = Trip.create(passenger_id: Passenger.last.id, driver_id: Driver.last.id, date: '2016-12-12')
+      trip = Trip.create(passenger_id: passenger.id, driver_id: driver.id, date: '2016-12-12')
       trip.rating = 4.0
       
       expect {
