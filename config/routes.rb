@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   resources :drivers
   resources :trips
   resources :passengers
+
+  resources :passengers do
+    resources :trips, only: [:index, :new, :create]
+  end
+
+  post '/drivers/:id/available', to: 'drivers#available', as: "driver_availability"
 end

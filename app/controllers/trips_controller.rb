@@ -1,11 +1,32 @@
 
 class TripsController < ApplicationController
-    # def index
-    #     @trips = Trip.all
-    # end
+    def index
+        if params[:passenger_id]
+
+            passenger = Passenger.find_by(id: params[:passenger_id])
+            if passenger
+              @trips = passenger.trips
+            else
+              head :not_found
+              return
+            end
+          else
+            @trips = Trip.all
+          end
+    end
 
     def new
-        @trip = Trip.new
+        if params[:passenger_id]
+            @passenger = Passenger.find_by(id: params[:passenger_id])
+            if @passenger
+              @trip = @passenger.trips.new
+            else
+              head :not_found
+              return
+            end
+          else
+            @trip = Trip.new
+          end
     end
 
     def create

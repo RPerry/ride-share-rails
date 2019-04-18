@@ -59,7 +59,7 @@ describe "PassengersController" do
     end
 
     it "responds with not_found for a passenger that doesn't exist" do
-      passenger_id = Passenger.last.id + 1
+      passenger_id = -1
       get edit_passenger_path(passenger_id)
       must_respond_with :not_found
     end
