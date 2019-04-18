@@ -1,9 +1,6 @@
 class PassengersController < ApplicationController
   def index
-    # Load a list of passengers from somewhere
-    @passengers = Passenger.all
-
-    @featured_passenger = @passengers.sample
+    @passengers = Passenger.all.where(deleted: nil)
   end
 
   def new
@@ -25,8 +22,6 @@ class PassengersController < ApplicationController
     passenger_id = params[:id]
 
     @passenger = Passenger.find_by(id: passenger_id)
-
-    @is_driver_available = !Driver.first_available_driver.nil?
 
     unless @passenger
       head :not_found
@@ -68,11 +63,9 @@ class PassengersController < ApplicationController
       return
     end
 
-    # driver.trips.all.each do |t|
-    #   t.driver_id = 99999
-    #  end
+    passenger.deleted = !passenger.deleted
 
-    passenger.destroy
+    passenger.save
 
     redirect_to passengers_path
   end
