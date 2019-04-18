@@ -64,10 +64,6 @@ class DriversController < ApplicationController
         return
        end
 
-    #    driver.trips.all.each do |t|
-    #     t.driver_id = 99999
-    #    end
-
 
         driver.destroy
         

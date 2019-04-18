@@ -13,13 +13,6 @@ describe "TripsController" do
     Driver.create name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6"
   }
 
-  # describe "index" do
-  #   it "can get index" do
-  #     get trips_path
-
-  #     must_respond_with :success
-  #   end
-  # end
 
   describe "show" do
     it "can get a valid trip" do
@@ -125,13 +118,13 @@ describe "TripsController" do
         post trips_path, params: trip_hash
       }.must_change "Trip.count", +1
 
-      # new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      # # expect(trip.date).must_equal trip_hash[:trip][:date]
-      # expect(trip.rating).must_equal trip_hash[:trip][:rating]
-      # expect(trip.cost).must_equal trip_hash[:trip][:cost]
+      new_trip = Trip.find_by(date: trip_hash[:trip][:date])
+      expect(trip.date).must_equal trip_hash[:trip][:date]
+      expect(trip.rating).must_equal trip_hash[:trip][:rating]
+      expect(trip.cost).must_equal trip_hash[:trip][:cost]
 
-      # must_respond_with :redirect
-      # must_redirect_to trip_path(new_trip.id)
+      must_respond_with :redirect
+      must_redirect_to trip_path(new_trip.id)
     end
   end
 
