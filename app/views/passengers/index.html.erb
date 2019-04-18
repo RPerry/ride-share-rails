@@ -3,12 +3,16 @@
 <ul>
   <% @passengers.each do |passenger| %>
     <li>
-      <strong>
+      <h3>
         <%= link_to passenger.name, passenger_path(passenger) %>
-      </strong>
-      <%= passenger.phone_num %>
+      </h3>
+      <p>
+      <strong><%= passenger.phone_num %></strong>
+      </p>
       <%= link_to "Edit", edit_passenger_path(passenger) %>
       <%= link_to "Delete", passenger_path(passenger), method: :delete, data: { confirm: "Really really?" } %>
     </li>
   <% end %>
 </ul>
+
+

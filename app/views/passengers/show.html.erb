@@ -1,4 +1,4 @@
-<h2>Passenger details page</h2>
+<h2>Passenger Details Page</h2>
 
 <p>
   Name: <%= @passenger.name %>
@@ -6,3 +6,40 @@
 <p>
   Phone number: <%= @passenger.phone_num %>
 </p>
+<p>
+  Total Fare Paid: $<%= @passenger.total_fare %>
+</p>
+
+<%#=form class= "button_to" method="post">
+<%#= form_with model: @trip, class: 'trip-form' do |f| %>
+
+<h2><%= @passenger.name %>'s Trips</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Driver</th>
+    <th>Passenger</th>
+    <th>Price</th>
+    <th>Rating</th>
+  </tr>
+  <% @passenger.trips.each do |t| %>
+  <tr>
+  <td><%= link_to t.id, trip_path(t) %></td>
+  <td><%= t.date%></td>
+  <% driver = Driver.find_by(id: t.driver_id)%>
+  <td><%= link_to t.driver.name, driver_path(t.driver_id)%></td>
+  <% passenger = Passenger.find_by(id: t.passenger_id)%>
+  <td> <%= link_to t.passenger.name, passenger_path(t.passenger_id)%></td>
+  <td>$<%= t.cost%> </td>
+  <td><%= t.rating%></td>
+  </tr>
+  <% end %>
+</table>
+<p>
+<%= link_to "Edit Passenger", edit_passenger_path(@passenger)%> <%= link_to "Delete Passenger", passenger_path(@passenger), method: :delete, data: { confirm: "Really really?" } %></td>
+</p>
+
+
+

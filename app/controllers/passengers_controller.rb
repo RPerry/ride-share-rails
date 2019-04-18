@@ -66,6 +66,10 @@ class PassengersController < ApplicationController
       return
     end
 
+    # driver.trips.all.each do |t|
+    #   t.driver_id = 99999
+    #  end
+
     passenger.destroy
 
     redirect_to passengers_path

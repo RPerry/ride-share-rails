@@ -3,12 +3,18 @@
 <ul>
   <% @drivers.each do |driver| %>
     <li>
-      <strong>
+      <h3>
         <%= link_to driver.name, driver_path(driver) %>
-      </strong>
-      VIN: <%= driver.vin %>
-      Car Make: <%= driver.car_make %>
-      Car Model: <%= driver.car_model %>
+      </h3>
+      <p>
+      <strong>VIN: </strong> <%= driver.vin %>
+      </p>
+      <p>
+      <strong>Car Make:</strong> <%= driver.car_make %>
+      </p>
+      <p>
+      <strong>Car Model:</strong> <%= driver.car_model %>
+      </p>
       <%= link_to "Edit", edit_driver_path(driver) %>
       <%= link_to "Delete", driver_path(driver), method: :delete, data: { confirm: "Really really?" } %>
     </li>
