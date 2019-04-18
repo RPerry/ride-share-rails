@@ -30,12 +30,17 @@ class TripsController < ApplicationController
     end
 
     def create
-        
-        @trip = Trip.new(trip_params)
-        
-        successful = @trip.save!
+        passenger_id = params[:passenger_id]
+        driver = Driver.first_available_driver
+        cost = rand(1..5000)
+        driver_id = (driver && driver.id) || -1
+        trip = Trip.new(passenger_id: passenger_id, driver_id: driver_id, cost: cost, date: Time.now)
+
+        successful = trip.save
         if successful
-            redirect_to trip_path(@trip.id)
+            driver.available = false
+            driver.save
+            redirect_to trip_path(trip.id)
         else 
             render :new, status: :bad_request
         end
@@ -70,6 +75,11 @@ class TripsController < ApplicationController
         end
 
         trip.update(trip_params)
+
+        if !trip.rating.nil? && !trip.driver.nil? && !trip.driver.available
+            trip.driver.available = true
+            trip.driver.save
+        end
 
         redirect_to trip_path(trip.id)
     end

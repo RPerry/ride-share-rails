@@ -10,6 +10,9 @@
   Total Fare Paid: $<%= @passenger.total_fare %>
 </p>
 
+<% if @is_driver_available  %>
+<%= link_to "Start Ride", passenger_trips_path(@passenger), method: :post%> 
+<% end %>
 <%#=form class= "button_to" method="post">
 <%#= form_with model: @trip, class: 'trip-form' do |f| %>
 

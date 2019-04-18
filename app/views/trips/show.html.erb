@@ -28,8 +28,19 @@
   <tr>
   <td><%= @trip.id %></td>
   <td><%= @trip.date%></td>
-  <td><%= link_to @trip.driver.name, driver_path(@trip.driver)%></td>
-  <td> <%= link_to @trip.passenger.name, passenger_path(@trip.passenger)%></td>
+  <td>
+  <% if !@trip.driver.nil?%>
+  <%= link_to @trip.driver.name, driver_path(@trip.driver)%>
+  <% else %>
+    Deleted Driver
+  <% end %>
+  <td>
+  <% if !@trip.passenger.nil?%>
+   <%= link_to @trip.passenger.name, passenger_path(@trip.passenger)%>
+    <% else %>
+    Deleted Passenger
+  <% end %>
+  </td>
   <td>$<%= @trip.cost%> </td>
   <td><%= @trip.rating%></td>
   <td><%= link_to "Edit", edit_trip_path(@trip)%></td>

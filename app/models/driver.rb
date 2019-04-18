@@ -24,4 +24,8 @@ class Driver < ApplicationRecord
    
     return average / number_of_trips
   end
+
+  def self.first_available_driver
+    return Driver.where(available: true).first
+  end
 end

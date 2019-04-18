@@ -26,6 +26,8 @@ class PassengersController < ApplicationController
 
     @passenger = Passenger.find_by(id: passenger_id)
 
+    @is_driver_available = !Driver.first_available_driver.nil?
+
     unless @passenger
       head :not_found
     end
