@@ -10,12 +10,8 @@ describe "TripsController" do
     Passenger.create name: "John Randall", phone_num: "234-456-3454"
   }
 
-  let (:driver) {
-    Driver.create name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true
-  }
-
-
   describe "show" do
+    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "can get a valid trip" do
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.save!
@@ -35,6 +31,7 @@ describe "TripsController" do
   end
 
   describe "edit" do
+    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "can get the edit page for an existing trip" do
       # Act
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
@@ -56,6 +53,7 @@ describe "TripsController" do
   end
 
   describe "update" do
+    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "can update an existing trip" do
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.rating = 4.0
@@ -106,44 +104,26 @@ describe "TripsController" do
 
   describe "create" do
     it "can create a new trip" do
+      Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
 
-      trip_hash = {
-        trip: {
-          date: '2016-06-02',
-          cost: 1474.0,
-          driver_id: driver.id,
-          passenger_id: passenger.id,
-        },
-      }
-      
       expect {
-        post passenger_trips_path, params: trip_hash
+        post passenger_trips_path(passenger)
       }.must_change "Trip.count", +1
-
-      new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      expect(new_trip.date).must_equal trip_hash[:trip][:date]
-      # expect(trip.rating).must_equal trip_hash[:trip][:rating]
-      expect(new_trip.cost).must_equal trip_hash[:trip][:cost]
-
+  
+      expect(Trip.all.last.passenger).must_equal passenger
+      
       must_respond_with :redirect
-      must_redirect_to trip_path(new_trip.id)
+      must_redirect_to trip_path(Trip.all.last.id)
     end
+  end
+
+  describe "create2" do
 
     it "doesn't create a trip if there are no available drivers" do
-      @trip = Trip.new
-      trip_hash = {
-        trip: {
-          id: @trip.id,
-          date: '2016-06-02',
-          rating: 4.0,
-          cost: 1474.0,
-          driver_id: nil,
-          passenger_id: passenger.id,
-        },
-      }
-
+      
+      puts Driver.first.name
       expect {
-        post trips_path, params: trip_hash
+        post passenger_trips_path(passenger)
       }.wont_change "Trip.count"
 
       must_respond_with :bad_request
@@ -152,6 +132,7 @@ describe "TripsController" do
   end
 
   describe "destroy" do
+    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "removes the trip from the database" do
       trip = Trip.create(passenger_id: passenger.id, driver_id: driver.id, date: '2016-12-12')
       trip.rating = 4.0

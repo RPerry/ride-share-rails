@@ -23,7 +23,7 @@ class Driver < ApplicationRecord
     number_of_trips = self.trips.all.length
     self.trips.all.each do |t|
         if t.rating.nil?
-          number_of_trips -= 1
+          number_of_trips - 1
         else
           average += t.rating
         end

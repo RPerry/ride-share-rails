@@ -1,16 +1,5 @@
 <h2>Trip Details Page</h2>
 
-<% if @trip.rating == nil%>
-    <%= form_with model: @trip, class: 'trip-form' do |f| %>
-    <div>
-        <%= f.label :rating, "Rating" %>
-        <%= f.select :rating, [1, 2, 3, 4, 5] %>
-    </div>
-
-  <%= f.submit "Rate" %>
-<% end %>
-<% end %>
-
 
 <h2>Trip #<%= @trip.id %> Details</h2>
 
