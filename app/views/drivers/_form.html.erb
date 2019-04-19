@@ -18,7 +18,7 @@
 
   <div>
     <%= f.label :name, "Please enter a name" %>
-    <%= f.text_field :name, placeholder: "Driver name" %>
+    <%= f.text_field :name, placeholder: "Driver Name" %>
   </div>
 
   <div>
@@ -28,12 +28,12 @@
 
   <div>
     <%= f.label :car_make, "Please enter a car make" %>
-    <%= f.text_field :car_make, placeholder: "Honda" %>
+    <%= f.select :car_make, ["Toyota", "Tesla", "Honda", "BMW", "Mercedes"] %>
   </div>
 
    <div>
     <%= f.label :car_model, "Please enter a car model" %>
-    <%= f.text_field :car_model, placeholder: "Accord" %>
+    <%= f.text_field :car_model, placeholder: "Car Model" %>
   </div>
 
 

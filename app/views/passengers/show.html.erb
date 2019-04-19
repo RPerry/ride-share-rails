@@ -34,7 +34,6 @@
     <th>ID</th>
     <th>Date</th>
     <th>Driver</th>
-    <th>Passenger</th>
     <th>Price</th>
     <th>Rating</th>
   </tr>
@@ -47,12 +46,6 @@
   <%= link_to t.driver.name, driver_path(t.driver)%>
   <% else %>
     Deleted Driver
-  <% end %>
-  <td>
-  <% if !t.passenger.nil?%>
-   <%= link_to t.passenger.name, passenger_path(t.passenger)%>
-    <% else %>
-    Deleted Passenger
   <% end %>
   </td>
   <td>$<%= t.cost%> </td>

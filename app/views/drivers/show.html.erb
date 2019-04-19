@@ -23,11 +23,14 @@
   Average Rating: <%= @driver.average_rating.round(2)%>
 </p>
 
-<% if @driver.available == true%>
-<%= link_to "Go Offline", driver_availability_path(@driver), method: :post%>
+<% if @driver.deleted %>
+ <p class="retired" > Driver Retired </p>
+<% elsif @driver.available == true%>
+<p class="offline-button"> <%= link_to "Go Offline", driver_availability_path(@driver), method: :post%> </p>
 <% else %>
-<%= link_to "Go Online", driver_availability_path(@driver), method: :post%>
+<p class="online-button"><%= link_to "Go Online", driver_availability_path(@driver), method: :post%> </p>
 <% end %>
+
 
 <h2><%= @driver.name %>'s Trips</h2>
 
@@ -35,7 +38,6 @@
   <tr>
     <th>ID</th>
     <th>Date</th>
-    <th>Driver</th>
     <th>Passenger</th>
     <th>Price</th>
     <th>Rating</th>
@@ -44,12 +46,6 @@
   <tr>
   <td><%= link_to t.id, trip_path(t) %></td>
   <td><%= t.date%></td>
-  <td>
-  <% if !t.driver.nil?%>
-  <%= link_to t.driver.name, driver_path(t.driver)%>
-  <% else %>
-    Deleted Driver
-  <% end %>
   <td>
   <% if !t.passenger.nil?%>
    <%= link_to t.passenger.name, passenger_path(t.passenger)%>
