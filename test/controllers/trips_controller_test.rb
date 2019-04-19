@@ -117,7 +117,7 @@ describe "TripsController" do
       }
       
       expect {
-        post trips_path(passenger.id, trip), params: trip_hash
+        post passenger_trips_path, params: trip_hash
       }.must_change "Trip.count", +1
 
       new_trip = Trip.find_by(date: trip_hash[:trip][:date])
