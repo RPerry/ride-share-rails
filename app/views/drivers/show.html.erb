@@ -6,12 +6,16 @@
 <p>
   VIN: <%= @driver.vin %>
 </p>
+<% if !@driver.car_make.nil?%>
 <p>
   Car Make: <%= @driver.car_make %>
 </p>
+<% end %>
+<% if !@driver.car_model.nil?%>
 <p>
   Car Model: <%= @driver.car_model %>
 </p>
+<% end %>
 <p>
   Total Earnings: $<%= @driver.total_earnings.round(2) %>
 </p>

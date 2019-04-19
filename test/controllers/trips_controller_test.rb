@@ -88,6 +88,10 @@ describe "TripsController" do
         must_respond_with :redirect
         must_redirect_to trips_path
     end
+
+    it "will toggle driver availability back to true after rating the driver" do
+      
+    end
   end
 
   describe "new" do
@@ -112,20 +116,40 @@ describe "TripsController" do
           passenger_id: passenger.id,
         },
       }
-    puts trip_hash
 
       expect {
         post trips_path, params: trip_hash
       }.must_change "Trip.count", +1
 
       new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      expect(trip.date).must_equal trip_hash[:trip][:date]
+      # expect(trip.date).must_equal trip_hash[:trip][:date]
       expect(trip.rating).must_equal trip_hash[:trip][:rating]
       expect(trip.cost).must_equal trip_hash[:trip][:cost]
 
       must_respond_with :redirect
       must_redirect_to trip_path(new_trip.id)
     end
+
+    it "doesn't create a trip if there are no available drivers" do
+      @trip = Trip.new
+      trip_hash = {
+        trip: {
+          id: @trip.id,
+          date: '2016-06-02',
+          rating: 4.0,
+          cost: 1474.0,
+          driver_id: nil,
+          passenger_id: passenger.id,
+        },
+      }
+
+      expect {
+        post trips_path, params: trip_hash
+      }.wont_change "Trip.count"
+
+      must_respond_with :bad_request
+    end
+
   end
 
   describe "destroy" do
