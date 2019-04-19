@@ -10,11 +10,22 @@
   Total Fare Paid: $<%= @passenger.total_fare %>
 </p>
 
-<% if @is_driver_available  %>
-<%= link_to "Start Ride", passenger_trips_path(@passenger), method: :post%> 
+
+<% if Driver.where(available: true).empty?  %>
+ No Available Drivers
+<% elsif @passenger.trips.empty? || !@passenger.trips.last.rating.nil? %> 
+<%= link_to "Start Ride", passenger_trips_path(@passenger), method: :post%>
+<% elsif @passenger.trips.last.rating == nil %>
+ <%= form_with model: @passenger.trips.last, class: 'trip-form' do |f| %>
+    <div>
+        <%= f.label :rating, "Rating" %>
+        <%= f.select :rating, [1, 2, 3, 4, 5] %>
+    </div>
+
+  <%= f.submit "Rate" %>
+  <% end %>
 <% end %>
-<%#=form class= "button_to" method="post">
-<%#= form_with model: @trip, class: 'trip-form' do |f| %>
+
 
 <h2><%= @passenger.name %>'s Trips</h2>
 
