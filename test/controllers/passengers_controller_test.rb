@@ -166,23 +166,22 @@ describe "PassengersController" do
   end
 
   describe "destroy" do
-    it "removes the passenger from the database" do
+    it "destroy action updates passenger's 'deleted' attribute" do
       test_passenger = passenger
 
-      # Act
       expect {
-        delete passenger_path(test_passenger)
-      }.must_change "Passenger.count", -1
+        post destroy_passenger_path(test_passenger.id)
+      }.wont_change 'Passenger.count'
 
-      # Assert
+      test_passenger.reload
+
+      test_passenger.deleted.must_equal true
+
       must_respond_with :redirect
       must_redirect_to passengers_path
-
-      after_passenger = Passenger.find_by(id: test_passenger.id)
-      expect(after_passenger).must_be_nil
     end
 
-    it "returns a 404 if the book does not exist" do
+    it "returns a 404 if the passenger does not exist" do
       # Arrange
       passenger_id = 1337
 
@@ -191,7 +190,7 @@ describe "PassengersController" do
 
       # Act
       expect {
-        delete passenger_path(passenger_id)
+        post destroy_passenger_path(passenger_id)
       }.wont_change "Passenger.count"
 
       # Assert

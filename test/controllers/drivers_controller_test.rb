@@ -127,18 +127,19 @@ describe "DriversController" do
   end
 
   describe "destroy" do
-    it "removes the driver from the database" do
-      driver = Driver.create(name: "John Randall", vin: "XF9HBFH148FLD41K8")
+    it "destroy action updates driver's 'deleted' attribute" do
+      test_driver = driver
       
       expect {
-        delete driver_path(driver)
-      }.must_change "Driver.count", -1
+        post destroy_driver_path(test_driver.id)
+      }.wont_change 'Driver.count'
+
+      test_driver.reload
+
+      test_driver.deleted.must_equal true
 
       must_respond_with :redirect
       must_redirect_to drivers_path
-
-      after_driver = Driver.find_by(name: driver.id)
-      expect(after_driver).must_be_nil
     end
 
     it "returns a 404 if the driver does not exist" do
@@ -147,10 +148,51 @@ describe "DriversController" do
       expect(Driver.find_by(name: driver_id)).must_be_nil
 
       expect {
-        delete driver_path(driver_id)
+        post destroy_driver_path(driver_id)
       }.wont_change "Driver.count"
 
       must_respond_with :not_found
+    end
+  end
+
+  describe "available" do
+    it "can toggle driver from offline to online" do
+      test_driver = driver
+
+      expect {
+        post driver_availability_path(test_driver.id)
+      }.wont_change 'Driver.count'
+
+      test_driver.reload
+
+      test_driver.available.must_equal true
+
+      must_respond_with :redirect
+      must_redirect_to driver_path(test_driver.id)
+    end
+    it "can toggle driver from online to offline" do
+      driver_hash = {
+        driver: {
+          name: "John Randall",
+          vin: "123456789",
+          car_make: "Honda",
+          car_model: "Accord",
+          available: true,
+        }
+      }
+
+      test_driver = Driver.create driver_hash[:driver]
+
+      expect {
+        post driver_availability_path(test_driver.id)
+      }.wont_change 'Driver.count'
+
+      test_driver.reload
+
+      test_driver.available.must_equal false
+
+      must_respond_with :redirect
+      must_redirect_to driver_path(test_driver.id)
     end
   end
 end

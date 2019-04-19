@@ -1,6 +1,6 @@
 class DriversController < ApplicationController
     def index
-        @drivers = Driver.all
+        @drivers = Driver.all.where(deleted: nil)
     end
 
     def new
@@ -63,10 +63,11 @@ class DriversController < ApplicationController
         head :not_found
         return
        end
-
-
-        driver.destroy
-        
+    
+        driver.deleted = !driver.deleted
+    
+        driver.save
+    
         redirect_to drivers_path
     end
 
@@ -84,7 +85,7 @@ class DriversController < ApplicationController
     
         driver.save
     
-        redirect_to driver_path(@driver.id)
+        redirect_to driver_path(driver.id)
       end
 
     private
