@@ -1,8 +1,9 @@
 require "test_helper"
+require 'pry'
 
 describe "TripsController" do
   let (:trip) {
-    Trip.create date: 0000-00-01, rating: 0.0, cost: 1234.5
+    Trip.create date: '2016-12-12', cost: 1234.5
   }
 
   let (:passenger) {
@@ -10,7 +11,7 @@ describe "TripsController" do
   }
 
   let (:driver) {
-    Driver.create name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6"
+    Driver.create name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true
   }
 
 
@@ -67,7 +68,7 @@ describe "TripsController" do
           cost: 1474.0
         },
       }
-      puts trip.id
+
       expect {
         patch trip_path(trip.id), params: trip_hash
       }.must_change "Trip.count", 0
@@ -90,7 +91,7 @@ describe "TripsController" do
     end
 
     it "will toggle driver availability back to true after rating the driver" do
-      
+
     end
   end
 
@@ -105,26 +106,24 @@ describe "TripsController" do
 
   describe "create" do
     it "can create a new trip" do
-      @trip = Trip.new
+
       trip_hash = {
         trip: {
-          id: @trip.id,
           date: '2016-06-02',
-          rating: 4.0,
           cost: 1474.0,
           driver_id: driver.id,
           passenger_id: passenger.id,
         },
       }
-
+      
       expect {
-        post trips_path, params: trip_hash
+        post trips_path(passenger.id, trip), params: trip_hash
       }.must_change "Trip.count", +1
 
       new_trip = Trip.find_by(date: trip_hash[:trip][:date])
-      # expect(trip.date).must_equal trip_hash[:trip][:date]
-      expect(trip.rating).must_equal trip_hash[:trip][:rating]
-      expect(trip.cost).must_equal trip_hash[:trip][:cost]
+      expect(new_trip.date).must_equal trip_hash[:trip][:date]
+      # expect(trip.rating).must_equal trip_hash[:trip][:rating]
+      expect(new_trip.cost).must_equal trip_hash[:trip][:cost]
 
       must_respond_with :redirect
       must_redirect_to trip_path(new_trip.id)
