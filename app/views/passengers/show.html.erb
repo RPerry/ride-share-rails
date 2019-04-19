@@ -12,7 +12,7 @@
 
 
 <% if Driver.where(available: true).empty?  %>
- No Available Drivers
+ Can't request a trip. There is no available Driver.
 <% elsif @passenger.trips.empty? || !@passenger.trips.last.rating.nil? %> 
 <%= link_to "Start Ride", passenger_trips_path(@passenger), method: :post%>
 <% else @passenger.trips.last.rating == nil %>
@@ -42,8 +42,8 @@
   <td><%= link_to t.id, trip_path(t) %></td>
   <td><%= t.date%></td>
   <td>
-  <% if !t.driver.nil?%>
-  <%= link_to t.driver.name, driver_path(t.driver)%>
+  <% unless t.driver.deleted %>
+    <%= link_to t.driver.name, driver_path(t.driver)%>
   <% else %>
     Deleted Driver
   <% end %>
