@@ -15,7 +15,7 @@
  No Available Drivers
 <% elsif @passenger.trips.empty? || !@passenger.trips.last.rating.nil? %> 
 <%= link_to "Start Ride", passenger_trips_path(@passenger), method: :post%>
-<% elsif @passenger.trips.last.rating == nil %>
+<% else @passenger.trips.last.rating == nil %>
  <%= form_with model: @passenger.trips.last, class: 'trip-form' do |f| %>
     <div>
         <%= f.label :rating, "Rating" %>

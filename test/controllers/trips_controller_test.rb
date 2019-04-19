@@ -6,12 +6,15 @@ describe "TripsController" do
     Trip.create date: '2016-12-12', cost: 1234.5
   }
 
+  let (:driver) {
+    Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
+}
+
   let (:passenger) {
     Passenger.create name: "John Randall", phone_num: "234-456-3454"
   }
 
   describe "show" do
-    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "can get a valid trip" do
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.save!
@@ -31,7 +34,6 @@ describe "TripsController" do
   end
 
   describe "edit" do
-    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "can get the edit page for an existing trip" do
       # Act
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
@@ -53,7 +55,7 @@ describe "TripsController" do
   end
 
   describe "update" do
-    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
+    
     it "can update an existing trip" do
       trip = Trip.new(date: '2016-12-12', passenger_id: passenger.id, driver_id: driver.id)
       trip.rating = 4.0
@@ -105,7 +107,6 @@ describe "TripsController" do
   describe "create" do
     it "can create a new trip" do
       Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
-
       expect {
         post passenger_trips_path(passenger)
       }.must_change "Trip.count", +1
@@ -115,24 +116,19 @@ describe "TripsController" do
       must_respond_with :redirect
       must_redirect_to trip_path(Trip.all.last.id)
     end
-  end
-
-  describe "create2" do
 
     it "doesn't create a trip if there are no available drivers" do
       
-      puts Driver.first.name
       expect {
         post passenger_trips_path(passenger)
       }.wont_change "Trip.count"
 
       must_respond_with :bad_request
     end
-
   end
 
+
   describe "destroy" do
-    driver = Driver.create(name: "Jessica Sanchez", vin: "L1CDHZJ0567RJKCJ6", available: true)
     it "removes the trip from the database" do
       trip = Trip.create(passenger_id: passenger.id, driver_id: driver.id, date: '2016-12-12')
       trip.rating = 4.0
