@@ -14,7 +14,7 @@
       <strong>Car Make:</strong> <%= driver.car_make %>
       </p>
       <% end %>
-      <% if !driver.car_model.nil?%>
+      <% unless driver.car_model == "" || driver.car_model == nil%>
       <p>
       <strong>Car Model:</strong> <%= driver.car_model %>
       </p>
