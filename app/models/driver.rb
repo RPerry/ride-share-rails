@@ -34,6 +34,6 @@ class Driver < ApplicationRecord
   end
 
   def self.first_available_driver
-    return Driver.where(available: true).first
+    return Driver.where(available: true).sample
   end
 end
