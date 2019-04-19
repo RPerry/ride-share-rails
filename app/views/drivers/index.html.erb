@@ -9,7 +9,7 @@
       <p>
       <strong>VIN: </strong> <%= driver.vin %>
       </p>
-      <% if !driver.car_make.nil?%>
+      <% unless driver.car_make == "" || driver.car_make == nil %>
       <p>
       <strong>Car Make:</strong> <%= driver.car_make %>
       </p>
@@ -20,7 +20,7 @@
       </p>
       <% end %>
       <%= link_to "Edit", edit_driver_path(driver) %>
-      <%= link_to "Delete", driver_path(driver), method: :delete, data: { confirm: "Really really?" } %>
+      <%= link_to "Delete", driver_path(driver), method: :delete, data: { confirm: "Are you sure you want to delete this driver?" } %>
     </li>
   <% end %>
 </ul>
