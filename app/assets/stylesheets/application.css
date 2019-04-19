@@ -53,7 +53,6 @@ nav ul {
 .online-button {
   background-color: #0169d8;
   border: none;
-  color: white;
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -62,14 +61,13 @@ nav ul {
   border-radius: 12px;
 }
 
-.online-button:hover{
+.online-button:hover {
   background-color: #0076ed;
 }
 
 .offline-button {
   background-color: #c72233;
   border: none;
-  color: white;
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -78,8 +76,13 @@ nav ul {
   border-radius: 12px;
 }
 
-.offline-button:hover{
+.offline-button:hover {
   background-color: #e0283a;
+}
+
+.online-button a,
+.offline-button a {
+  color: white;
 }
 
 .retired {
