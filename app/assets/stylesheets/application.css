@@ -13,6 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+ html {
+  font-family: 'Raleway', sans-serif;
+ }
+
+ h1, h2 {
+  font-family: 'Alice', serif;
+ }
+
 nav ul {
   display: grid;
   flex-direction: row;
@@ -20,7 +29,6 @@ nav ul {
   background: #dddddd;
   padding: 1em;
   list-style: none;
-  top: 0;
   width: 100%;
 }
 
