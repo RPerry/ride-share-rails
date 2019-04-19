@@ -23,6 +23,12 @@
   Average Rating: <%= @driver.average_rating.round(2)%>
 </p>
 
+<% if @driver.available == true%>
+<%= link_to "Go Offline", driver_availability_path(@driver), method: :post%>
+<% else %>
+<%= link_to "Go Online", driver_availability_path(@driver), method: :post%>
+<% end %>
+
 <h2><%= @driver.name %>'s Trips</h2>
 
 <table>

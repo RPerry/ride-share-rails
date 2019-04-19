@@ -80,8 +80,12 @@ class DriversController < ApplicationController
           head :not_found
           return
         end
-    
-        driver.available = !driver.available
+        
+        if driver.available == true
+            driver.available = !driver.available
+        elsif driver.available == false || driver.available == nil
+            driver.available = true
+        end
     
         driver.save
     
