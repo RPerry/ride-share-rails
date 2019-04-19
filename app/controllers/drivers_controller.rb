@@ -85,7 +85,7 @@ class DriversController < ApplicationController
     
         driver.save
     
-        redirect_to driver_path(@driver.id)
+        redirect_to driver_path(driver.id)
       end
 
     private

@@ -154,4 +154,45 @@ describe "DriversController" do
       must_respond_with :not_found
     end
   end
+
+  describe "available" do
+    it "can toggle driver from offline to online" do
+      test_driver = driver
+
+      expect {
+        post driver_availability_path(test_driver.id)
+      }.wont_change 'Driver.count'
+
+      test_driver.reload
+
+      test_driver.available.must_equal true
+
+      must_respond_with :redirect
+      must_redirect_to driver_path(test_driver.id)
+    end
+    it "can toggle driver from online to offline" do
+      driver_hash = {
+        driver: {
+          name: "John Randall",
+          vin: "123456789",
+          car_make: "Honda",
+          car_model: "Accord",
+          available: true,
+        }
+      }
+
+      test_driver = Driver.create driver_hash[:driver]
+
+      expect {
+        post driver_availability_path(test_driver.id)
+      }.wont_change 'Driver.count'
+
+      test_driver.reload
+
+      test_driver.available.must_equal false
+
+      must_respond_with :redirect
+      must_redirect_to driver_path(test_driver.id)
+    end
+  end
 end
