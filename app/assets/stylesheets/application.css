@@ -16,20 +16,34 @@
 
  html {
   font-family: 'Raleway', sans-serif;
+  line-height: 150%;
  }
 
  h1, h2 {
   font-family: 'Alice', serif;
  }
 
+ a {
+   color: darkcyan;
+ }
+
+a:hover,
+a:visited:hover {
+  color: blueviolet;
+
+}
+
+a:visited {
+  color: royalblue
+}
+
 nav ul {
   display: grid;
   flex-direction: row;
-  grid-template-columns: 1fr 1fr 1fr 4fr;
+  grid-template-columns: repeat(3, 1fr) 4fr;
   background: #dddddd;
-  padding: 1em;
+  padding: 1.5em;
   list-style: none;
-  width: 100%;
 }
 
  .dropdown {
@@ -43,6 +57,7 @@ nav ul {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 1;
+  border-radius: 12px;
   background-color: #efefef;
 }
 
@@ -83,6 +98,7 @@ nav ul {
 .online-button a,
 .offline-button a {
   color: white;
+  text-decoration: none;
 }
 
 .retired {
