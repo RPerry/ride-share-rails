@@ -46,6 +46,10 @@ nav ul {
   list-style: none;
 }
 
+nav a {
+  text-decoration: none;
+}
+
  .dropdown {
   position: relative;
 }
