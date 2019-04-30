@@ -47,7 +47,7 @@
     Deleted Driver
   <% end %>
   </td>
-  <td>$<%= t.cost/100 %> </td>
+  <td>$<%= to_dollars(t.cost) %> </td>
   <td><%= t.rating%></td>
   </tr>
   <% end %>
