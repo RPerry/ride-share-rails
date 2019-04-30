@@ -12,7 +12,7 @@ class Driver < ApplicationRecord
       earnings += driver_earnings
     end
 
-    return earnings
+    return to_dollars(earnings)
   end
 
   def average_rating
@@ -29,11 +29,15 @@ class Driver < ApplicationRecord
         end
     end
    
-    return average / number_of_trips
+    return (average / number_of_trips)
     end
   end
 
   def self.first_available_driver
     return Driver.where(available: true).sample
   end
+end
+
+def to_dollars(cost)
+  return (cost/100).round(2)
 end

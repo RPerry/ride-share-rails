@@ -53,7 +53,7 @@
     Deleted Passenger
   <% end %>
   </td>
-  <td>$<%= t.cost%> </td>
+  <td>$<%= to_dollars(t.cost) %> </td>
   <td><%= t.rating%></td>
   </tr>
   <% end %>

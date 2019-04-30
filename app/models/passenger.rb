@@ -10,6 +10,6 @@ class Passenger < ApplicationRecord
         fare += t.cost
     end
 
-    return fare
+    return to_dollars(fare)
   end
 end
